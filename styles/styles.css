@@ -1,0 +1,263 @@
+*{
+    margin:0;
+    padding: 0;
+    box-sizing: border-box;
+}
+html{
+    scroll-behavior: smooth;
+}
+body{
+    overflow: hidden;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+.page{
+    height: 100%;
+    width:100%;
+    
+}
+canvas{
+z-index: -1;
+position:fixed;
+
+
+
+}
+.home-holder {
+    
+    
+    position: absolute;
+    color:white;
+    height: 10vh;
+    width: 100%;
+    bottom:10%;
+    left:0;
+    transform: translateY(10%);
+    
+}
+.home-holder a{
+    text-decoration: none;
+    color:white;
+}
+.home {
+    display: flex;
+    flex-wrap: wrap;
+    width:100%;
+    height: 100%;
+    justify-content: center;
+    align-content: center;
+}
+.home h2{
+    margin:auto 1%;
+    font-size: 3rem;
+    text-transform: uppercase;
+    transition: .3s ease;
+    
+}
+.home h2:hover{
+    filter: drop-shadow(2px 2px .5rem black);
+}
+.big{
+    /* z-index: 1000; */
+    position: absolute;
+    width: 100%;
+    text-transform: uppercase;
+    color:white;
+    top:5%;
+    left:50%;
+    transform: translateX(-50%);
+    text-align: center;
+}
+section{
+    width:100vw;
+    height: 100vh;
+    position: absolute;
+    transition: .3s ease;
+    /* background: rgba(200,0,0,1); */
+}
+section h2{
+    /* margin-top:20px; */
+    font-size: 2.5rem;
+    color:white;
+    text-align: center;
+}
+section:nth-of-type(n+2){
+    background: red;
+}
+#create{
+    left:-120%;
+}
+#create.active{
+    left:0
+}
+#work{
+    right: -100%;
+}
+#work.active{
+    right: 0;
+}
+#us{
+    top:-100%;
+}
+#us.active{
+    top:0;
+}
+.close{
+    position: absolute;
+    top:3%;
+    right:3%;
+    cursor: pointer;
+    z-index: 1000;
+}
+.create-hold{
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    color:white;
+    justify-content: center;
+    align-items: center;
+    transition: .5s ease;
+    font-size: 2rem;
+    top:45%;
+    position: relative;
+    transition: .3s ease;
+}
+.create-hold h3{
+    margin:auto 2%;
+    cursor: pointer;
+}
+.create-hold.active{
+    top:0%;
+    font-size: 1rem;
+}
+.current-work-container{
+    position: absolute;
+    width:100%;
+    height: 100%;
+    left:-100%;
+    transition: .5s ease;
+}
+.current-work-container.active{
+    left:0;
+}
+.current-work{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    position: relative;
+    top:10%;
+}
+.current-work-item{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:10px;
+    color:white;
+    
+}
+.img-holder{
+    width:65%;
+    margin: auto;
+    cursor: pointer;
+    
+}
+.img-holder:hover > img {
+transform: scale(1.2);
+}
+.img-holder img{
+    width:100%;
+    transition: .3s ease;
+}
+.current-work-holder{
+    width:100%;
+    position: relative;
+    top:15vh;
+}
+.holder{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:20px;
+    position: absolute;
+    opacity: 0;
+    transition: .5s ease;
+    /* height: 32vh; */
+}
+.holder.active,.holder-1.active,.holder-2.active,.holder-3.active{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap:20px;
+    opacity: 1;
+    pointer-events: all;
+}
+.links{
+    /* width:50%; */
+    margin: auto ;
+}
+.links button{
+    width:150px;
+    height: 40px;
+}
+.links a{
+    text-decoration: none;
+    color:black;
+
+}
+.desc{
+    width:50%;
+}
+.desc p{
+    font-size:1.2rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+#light-box{
+    width:100vw;
+    height: 100vh;
+    display: none;
+}
+#light-box.active{
+    display: block;
+    background: black;
+}
+#work{
+    position: relative;
+    
+}
+.work-holder{
+    display:grid;
+    place-items: center;
+    grid-template-columns: repeat(3,1fr);
+    position: relative;
+    top:10vh;
+    
+    
+}
+.work-holder-item{
+    
+    
+    width:200px;
+    height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* font-size: 5rem; */
+    color:white;
+}
+.icon-holder{
+    width:40%;
+    height: 40%;
+    /* margin:auto; */
+    background: black;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+}
+.work-holder-item i{
+    /* margin: auto; */
+    font-size:2rem;
+    color:white;
+}

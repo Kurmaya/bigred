@@ -9,16 +9,17 @@
 </head>
 <body>
     <div class="page">
-    <h1 class="big">Big red studios</h1>
+    
     <canvas class="webgl">
 
     </canvas>
     <section id="home">
+        <h1 class="big">Big red studios</h1>
         <div class="home-holder">
             <div class="home">
-                <h2><a href="#create">Create</a></h2>
-                <h2><a href="#work">Work With</a></h2>
-                <h2><a href="#us">Us</a></h2>
+                <h2 class="cre"><a href="#create">Create</a></h2>
+                <h2 class="wor"><a href="#work">Work With</a></h2>
+                <h2 class="u"><a href="#us">Us</a></h2>
             </div> 
             
         </div>
@@ -40,28 +41,31 @@
                
     
     <div class="current-work-item">
-        <h3>Make Up Over Makeup presented by e.l.f.</h3>
+        
         <div class="img-holder">
             <img src="./assets/images/makeup.webp" alt="">
 
         </div>
+        <h3>Make Up Over Makeup presented by e.l.f.</h3>
         
     </div>
     <div class="current-work-item">
-        <h3>Verizon's XBox & All-Access Pass Launch</h3>
+        
         <div class="img-holder">
             <img src="./assets/images/verizon.webp" alt="">
 
         </div>
+        <h3>Verizon's XBox & All-Access Pass Launch</h3>
         
     </div>
     <div class="current-work-item">
         
-        <h3>Family Affair | A Short Comedy Film</h3>
+        
         <div class="img-holder">
             <img src="./assets/images/family.webp" alt="">
 
         </div>
+        <h3>Family Affair | A Short Comedy Film</h3>
     </div>
 </div>
 <div class="current-work-holder">
@@ -124,6 +128,12 @@
 
         </div>
     </div>
+</div>
+<div class="past-work-container">
+    <h2>Past Work</h2>
+</div>
+<div class="upcoming-work-container">
+    <h2>Upcoming Work</h2>
 </div>
     </section>
     <section id="work">
@@ -192,29 +202,9 @@
     const arr = ['.holder-1','.holder-2','.holder-3'];
     const arr1 = ['.current-work-container','.past-work-container','.upcoming-work-container'];
     const homeArr = ['#create','#work','#us'];
-    // switch (homeTabs[i]) {
-    //         case '1':
-    //             document.getElementById('create').classList.add('active');
-    //             document.getElementById('us').classList.remove('active');
-    //             document.getElementById('work').classList.remove('active');
-    //             break;
-    //             case '2':
-    //             document.getElementById('create').classList.remove('active');
-    //             document.getElementById('us').classList.remove('active');
-    //             document.getElementById('work').classList.add('active');
-    //             break;
 
-    //             case '3':
-    //             document.getElementById('create').classList.remove('active');
-    //             document.getElementById('work').classList.remove('active');
-    //             document.getElementById('us').classList.add('active');
-
-    //             break;
-        
-    //         default:
-    //             break;
-    //     }
     function homeGo(){
+        document.querySelector('#home').classList.add('hide');
         homeTabs.forEach(tab=>{
             tab.classList.remove('active');
             homeArr.forEach(ar=>{
@@ -234,17 +224,21 @@
         })
     }
     function leggo(){
-        createTabs.forEach(tab=>{
-            tab.classList.remove('active');
-            
-        })
+        // createTabs.forEach(tab=>{
+        //     tab.classList.remove('active');
+        // })
+        for (let i=0;i<arr1.length;i++){
+            document.querySelector(arr1[i]).classList.remove('active');
+        }
+        
     }
 
 
 for (let i=0;i<createTabs.length;i++){
     createTabs[i].addEventListener('click',function(){
         leggo();
-        document.querySelector(arr1[i]).classList.toggle('active');
+        
+        document.querySelector(arr1[i]).classList.add('active');
         document.querySelector('.create-hold').classList.add('active');
     })
 }
@@ -267,7 +261,7 @@ for (let i=0;i<createTabs.length;i++){
     
     document.querySelectorAll('.close').forEach(c=>{
         c.addEventListener('click',function(){
-
+            document.querySelector('#home').classList.remove('hide');
             this.parentNode.classList.remove('active');
             document.querySelector('.create-hold').classList.remove('active');
             arr1.forEach(ar=>{
@@ -276,6 +270,7 @@ for (let i=0;i<createTabs.length;i++){
         })
     })
 </script>
+<script src="./modules/gsap.min.js"></script>
     <script src="./modules/dat.gui.min.js"></script>
     <script type="module" src="./scripts/script.js"></script>
 </body>

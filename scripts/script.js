@@ -104,7 +104,7 @@ gui.add(shadowPlane.position,'y',-2,2).name('sPlane p y');
 
 // cylinder
 let cylGeo = new THREE.CylinderGeometry(30,30,10,100,100,false);
-let cylMat = new THREE.MeshBasicMaterial({color:0xaf0000,side:THREE.DoubleSide,reflectivity:10,metalness:.6,roughness:1});
+let cylMat = new THREE.MeshBasicMaterial({color:0xcf0000,side:THREE.DoubleSide,reflectivity:10,metalness:.6,roughness:1});
 let cyl = new THREE.Mesh(cylGeo,cylMat);
 scene.add(cyl);
 console.log(cyl)
@@ -136,7 +136,7 @@ function onDocumentMouseMove(event){
   window.addEventListener('mousemove',onDocumentMouseMove);
     const composer = new EffectComposer(renderer);
 const renderPass = new RenderPass(scene,camera);
-const bloom = new UnrealBloomPass(new THREE.Vector2(window.innerWidth,window.innerHeight),1.8,.6,.28);
+const bloom = new UnrealBloomPass(new THREE.Vector2(window.innerWidth,window.innerHeight),.5,.6,.28);
 
 console.log(bloom);
 composer.addPass(renderPass);
@@ -146,6 +146,59 @@ composer.addPass(bloom);
 vignette.uniforms.darkness.value=3.5;
 vignette.uniforms.offset.value=0.75;
 const clock = new THREE.Clock();
+
+const cre = document.querySelector('.cre').addEventListener('click',function(){
+    let anim = gsap.timeline();
+    anim.to(camera.position,{
+        x:3,
+        z:3.2,
+        duration:.5,
+        ease:'none'
+    })
+});
+const wor = document.querySelector('.wor').addEventListener('click',function(){
+    let anim = gsap.timeline();
+    anim.to(camera.position,{
+        x:0,
+        z:2.2,
+        duration:.5,
+        ease:'none'
+    })
+});
+const u = document.querySelector('.u').addEventListener('click',function(){
+    let anim = gsap.timeline();
+    anim.to(camera.position,{
+        x:-1.5,
+        z:6.2,
+        duration:.5,
+        ease:'none'
+    },'simultaneously')
+    anim.to(camera.rotation,{
+        y:.5,
+        duration:.5,
+        ease:'none'
+    },'simultaneously')
+});
+const cl =document.querySelectorAll('.close');
+
+cl.forEach(c=>{
+    c.addEventListener('click',function(){
+        gsap.to(camera.position,{
+            x:0,
+            y:0,
+            z:5,
+            duration:.5,
+            ease:'none'
+        })
+        gsap.to(camera.rotation,{
+            x:0,
+            y:0,
+            z:0,
+            duration:.5,
+            ease:'none'
+        })
+    })
+})
 window.addEventListener('resize', () =>{
     //update sizes
     

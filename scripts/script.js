@@ -114,12 +114,13 @@ let mouseY=0;
 
 let targetX=0;
 let targetY=0;
+let mX=circle.rotation.y;
 const windowX= window.innerWidth/ 2;
 const windowY= window.innerHeight/2;
 function onDocumentMouseMove(event){
     mouseX= (event.clientX - windowX);
     mouseY = (event.clientY-windowY);
-    circle.rotation.y= mouseX*0.0002;
+    circle.rotation.y= (mouseX*0.0002)+mX;
     // dLight1.position.x= (mouseX*0.001);
   
   
@@ -148,6 +149,7 @@ vignette.uniforms.offset.value=0.75;
 const clock = new THREE.Clock();
 
 const cre = document.querySelector('.cre').addEventListener('click',function(){
+    mX=.5
     let anim = gsap.timeline();
     anim.to(camera.position,{
         x:3,
@@ -155,6 +157,15 @@ const cre = document.querySelector('.cre').addEventListener('click',function(){
         duration:.5,
         ease:'none'
     })
+    .to(circle.rotation,{
+        y:mX+(-mouseX*0.0002)
+
+    },'simultaneously')
+    .to(pLight.position,{
+        x:0.5,
+        y:1.2,
+        z:1,
+    },'simultaneously')
 });
 const wor = document.querySelector('.wor').addEventListener('click',function(){
     let anim = gsap.timeline();
@@ -166,10 +177,11 @@ const wor = document.querySelector('.wor').addEventListener('click',function(){
     })
 });
 const u = document.querySelector('.u').addEventListener('click',function(){
+    mX= -.5;
     let anim = gsap.timeline();
     anim.to(camera.position,{
-        x:-1.5,
-        z:6.2,
+        x:-.8,
+        z:3.2,
         duration:.5,
         ease:'none'
     },'simultaneously')
@@ -178,11 +190,22 @@ const u = document.querySelector('.u').addEventListener('click',function(){
         duration:.5,
         ease:'none'
     },'simultaneously')
+    .to(circle.rotation,{
+        y:mX+(-mouseX*0.0002)
+
+    },'simultaneously')
+    .to(pLight.position,{
+        x:-2.8,
+        y:.5,
+        z:2.6,
+
+    },'simultaneously')
 });
 const cl =document.querySelectorAll('.close');
 
 cl.forEach(c=>{
     c.addEventListener('click',function(){
+        mX=0;
         gsap.to(camera.position,{
             x:0,
             y:0,
@@ -190,14 +213,26 @@ cl.forEach(c=>{
             duration:.5,
             ease:'none'
         })
+        gsap.to(circle.rotation,{
+            y:mX+(-mouseX*0.0002)
+        })
         gsap.to(camera.rotation,{
             x:0,
             y:0,
             z:0,
             duration:.5,
-            ease:'none'
+            ease:'none',
+            onComplete:function(){
+                gsap.to(pLight.position,{
+                    x:0,
+                    y:2,
+                    z:3,
+                })
+            }
         })
     })
+ 
+   
 })
 window.addEventListener('resize', () =>{
     //update sizes

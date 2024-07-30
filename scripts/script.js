@@ -41,19 +41,19 @@ scene.add(camera);
 //lights 
     let dLight = new THREE.DirectionalLight(0xfdabff,1,10);
     let dLight1 = new THREE.DirectionalLight(0xffffff,1,5);
-    let dLight2 = new THREE.DirectionalLight(0xababff,1,10);
-    let pLight = new THREE.PointLight(0xffffff,2,10);
+    let dLight2 = new THREE.DirectionalLight(0xababff,.3,10);
+    let pLight = new THREE.PointLight(0xffffff,2,25);
     let aLight= new THREE.AmbientLight(0xffffff,.2);
     // scene.add(aLight)
     pLight.castShadow=true;
     gui.add(pLight.position,'x',-3,3).name('pLight p x');
     gui.add(pLight.position,'y',-3,3).name('pLight p y');
     gui.add(pLight.position,'z',-3,8).name('pLight p z');
-    pLight.position.set(0,2,2);
+    pLight.position.set(0,5,2);
     scene.add(pLight);
-    dLight.position.set(1.2,.2,3);
-    dLight2.position.set(-1.2,.2,3);
-    dLight1.position.set(-2,1.8,2);
+    dLight.position.set(2.2,.2,3);
+    dLight2.position.set(-5.2,2.2,3);
+    dLight1.position.set(-5,.8,2);
     // dLight.castShadow=true;
     // dLight1.castShadow=true;
     // dLight1.position.set(-2,8,3);
@@ -64,30 +64,49 @@ scene.add(camera);
     scene.add(dLight2);
     let geon,mixer,act;
 let gLoader= new GLTFLoader();
-// gLoader.load('./assets/3d/pigeon1.glb',function(gltf){
-//     scene.add(gltf.scene);
-//     geon = gltf.scene;
-//     console.log(geon);
-//     mixer=new THREE.AnimationMixer(geon);
-//     const clips=gltf.animations;
-    
-//     geon.position.set(0,-1.5,0);
-//     geon.rotation.y=0;
-//     geon.scale.set(.1,.1,.1);
-//     gui.add(geon.scale,'x',100,150).name('geon s x');
-//     gui.add(geon.scale,'y',100,150).name('geon s y');
-//     gui.add(geon.scale,'z',10,50).name('geon s z');
-//     gui.add(geon.position,'x',-10,30).name('geon p x');
-//     gui.add(geon.position,'y',-20,30).name('geon p y');
-//     gui.add(geon.rotation,'y',-10,10).name('geon r y');
+gLoader.load('./assets/3d/bigredv4.glb',function(gltf){
+    scene.add(gltf.scene);
+    geon = gltf.scene;
+    console.log(geon);
+    geon.children.forEach((child)=>{
+        // child.receiveShadow = true;
+        child.castShadow = true;
+        // child.material = new THREE.MeshNormalMaterial();
+    })
+    // mixer=new THREE.AnimationMixer(geon);
+    // const clips=gltf.animations;
+    geon.children[0].material.color.r = geon.children[0].material.color.g =geon.children[0].material.color.b =0;
+    geon.children[0].material.emissive.r = geon.children[0].material.emissive.g =geon.children[0].material.emissive.b =0;
+    geon.children[1].material.color.r = 1;
+    geon.children[1].material.color.g = 0;
+    geon.children[1].material.color.b = 0;
+    geon.children[4].material.color.r = 1;
+    geon.children[4].material.color.g = 1;
+    geon.children[4].material.color.b = 1;
+    geon.children[9].material.color.r = 0;
+    geon.children[9].material.color.g = 0;
+    geon.children[9].material.color.b = 0;
+    geon.children[8].material.color.r = 0;
+    geon.children[8].material.color.g = 0;
+    geon.children[8].material.color.b = 0;
+    // geon.children[1].material.emissive = "0x000000";
+    geon.position.set(0,0,-3);
+    geon.rotation.x=Math.PI*2.5;
+    geon.scale.set(.5,.5,.5);
+    // gui.add(geon.scale,'x',100,150).name('geon s x');
+    // gui.add(geon.scale,'y',100,150).name('geon s y');
+    // gui.add(geon.scale,'z',10,50).name('geon s z');
+    gui.add(geon.position,'x',-10,30).name('geon p x');
+    gui.add(geon.position,'y',-20,30).name('geon p y');
+    gui.add(geon.rotation,'z',-10,10).name('geon r z');
     
 
-// });
+});
 let circleGeom = new THREE.CircleGeometry(1,50);
 let circleMat = new THREE.MeshPhysicalMaterial({map:new THREE.TextureLoader().load('./assets/Big Red Logo v01.00.png'),side:THREE.DoubleSide,color:0xff0000,metalness:1.5,roughness:.7,reflectivity:10})
 let circle = new THREE.Mesh(circleGeom,circleMat);
 circle.castShadow=true;
-scene.add(circle);
+// scene.add(circle);
 console.log(circle);
 
 let shadowPlaneGeo = new THREE.CircleGeometry(15,50);
@@ -120,9 +139,19 @@ const windowY= window.innerHeight/2;
 function onDocumentMouseMove(event){
     mouseX= (event.clientX - windowX);
     mouseY = (event.clientY-windowY);
-    circle.rotation.y= (mouseX*0.0002)+mX;
+    // mouseY = ( event.clientY / windowY ) * -.5;
+    // circle.rotation.y= (mouseX*0.0002)+mX;
+    // geon.children.forEach((child)=>{
+    //     // child.rotation.x=(mouseX*0.0002);
+    //     child.rotation.z=-(mouseX*0.0001);
+    //     // child.rotation.z=(mouseX*0.0001);
+    // })
+    geon.rotation.z=-(mouseX*0.0001);
+    geon.rotation.y=-(mouseY*0.0002);
+    // geon.rotation.x=geon.rotation.x-(mouseY*0.01);
+    // geon.children[0].rotation.x=(mouseX*0.0002);
     // dLight1.position.x= (mouseX*0.001);
-  
+    console.log(mouseY);
   
   }
   gui.add(camera.position,'x',-3,3).name('camera p x');
@@ -161,11 +190,12 @@ const cre = document.querySelector('.cre').addEventListener('click',function(){
         y:mX+(-mouseX*0.0002)
 
     },'simultaneously')
-    .to(pLight.position,{
-        x:0.5,
-        y:1.2,
-        z:1,
-    },'simultaneously')
+  
+    // .to(pLight.position,{
+    //     x:0.5,
+    //     y:1.2,
+    //     z:1,
+    // },'simultaneously')
 });
 const wor = document.querySelector('.wor').addEventListener('click',function(){
     let anim = gsap.timeline();

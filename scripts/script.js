@@ -10,7 +10,7 @@ import { ShaderPass } from '../modules/ShaderPass.js';
 import {UnrealBloomPass} from '../modules/UnrealBloomPass.js';
 // import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 // import * as dat from '../modules/dat.gui.min.js';
-
+window.addEventListener('load',geonLoad);
 
 let canvas , camera , renderer ,scene ;
 let gui = new dat.GUI();
@@ -64,6 +64,9 @@ scene.add(camera);
     scene.add(dLight2);
     let geon,mixer,act;
 let gLoader= new GLTFLoader();
+function geonLoad(){
+
+
 gLoader.load('./assets/3d/bigredv4.glb',function(gltf){
     scene.add(gltf.scene);
     geon = gltf.scene;
@@ -92,7 +95,15 @@ gLoader.load('./assets/3d/bigredv4.glb',function(gltf){
     // geon.children[1].material.emissive = "0x000000";
     geon.position.set(0,0,-3);
     geon.rotation.x=Math.PI*2.5;
-    geon.scale.set(.5,.5,.5);
+    geon.scale.set(.0,.0,.0);
+    
+        gsap.to(geon.scale,{
+            x:0.5,
+            y:0.5,
+            z:0.5,
+            duration:.3,
+            ease:'power1'
+        })
     // gui.add(geon.scale,'x',100,150).name('geon s x');
     // gui.add(geon.scale,'y',100,150).name('geon s y');
     // gui.add(geon.scale,'z',10,50).name('geon s z');
@@ -102,6 +113,7 @@ gLoader.load('./assets/3d/bigredv4.glb',function(gltf){
     
 
 });
+}
 let circleGeom = new THREE.CircleGeometry(1,50);
 let circleMat = new THREE.MeshPhysicalMaterial({map:new THREE.TextureLoader().load('./assets/Big Red Logo v01.00.png'),side:THREE.DoubleSide,color:0xff0000,metalness:1.5,roughness:.7,reflectivity:10})
 let circle = new THREE.Mesh(circleGeom,circleMat);
@@ -164,6 +176,7 @@ function onDocumentMouseMove(event){
 
   gui.add(circle.rotation,'y',-Math.PI,Math.Pi);
   window.addEventListener('mousemove',onDocumentMouseMove);
+
     const composer = new EffectComposer(renderer);
 const renderPass = new RenderPass(scene,camera);
 const bloom = new UnrealBloomPass(new THREE.Vector2(window.innerWidth,window.innerHeight),.5,.6,.28);
@@ -224,12 +237,12 @@ const u = document.querySelector('.u').addEventListener('click',function(){
         y:mX+(-mouseX*0.0002)
 
     },'simultaneously')
-    .to(pLight.position,{
-        x:-2.8,
-        y:.5,
-        z:2.6,
+    // .to(pLight.position,{
+    //     x:-2.8,
+    //     y:.5,
+    //     z:2.6,
 
-    },'simultaneously')
+    // },'simultaneously')
 });
 const cl =document.querySelectorAll('.close');
 
@@ -252,13 +265,13 @@ cl.forEach(c=>{
             z:0,
             duration:.5,
             ease:'none',
-            onComplete:function(){
-                gsap.to(pLight.position,{
-                    x:0,
-                    y:2,
-                    z:3,
-                })
-            }
+            // onComplete:function(){
+            //     gsap.to(pLight.position,{
+            //         x:0,
+            //         y:2,
+            //         z:3,
+            //     })
+            // }
         })
     })
  
